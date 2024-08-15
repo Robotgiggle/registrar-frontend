@@ -1,4 +1,8 @@
-# RegistrarFrontend
+# Registrar Web Interface
+
+This is an archive of the Angular site I created in summer 2024 as a frontend interface for Columbia Business School's registrar system. This archive exists only as an example of my work - building the site from these files and attempting to use it will fail, as it relies on a variety of API endpoints which are not accessible outside the actual CBS Registrar app.
+
+# Angular Info
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.0.
 
