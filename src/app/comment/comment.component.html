@@ -1,0 +1,4 @@
+<div (click)="expanded = !expanded" [class.expanded]="expanded">
+    <p class="clickable">{{commentObj.Originator}} ({{commentObj.Comment_Date|date:'MMMM, dd Y HH:mm:ss'}})</p>
+    <p *ngIf="expanded">{{commentObj.Comment}}</p>
+</div>

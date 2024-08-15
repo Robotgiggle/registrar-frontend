@@ -1,0 +1,28 @@
+<div>
+    <p>Your spreadsheet will require the following three columns in the following order:</p>
+    <ul>
+        <li>UNI</li>
+        <li>Cluster</li>
+        <li>LT (up to 5 characters)</li>
+    </ul>
+    <p>These columns are required. A record can only be uploaded once. The student record's status will switch to “A” upon upload.</p>
+    
+    <input type="file" (change)="readFile($event)" style="display: none;" #realFileButton accept=".xls,.xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel">
+    
+    <button *ngIf="!sheetFile; else chooseInactive" type="button" (click)="realFileButton.click()" class="active-button">Choose File</button>
+    <ng-template #chooseInactive><button class="inactive-button">Choose File</button></ng-template>
+    <br>
+
+    <button *ngIf="sheetFile; else uploadInactive" type="button" (click)="uploadExcel()" class="active-button">Upload File</button>
+    <ng-template #uploadInactive><button class="inactive-button">Upload File</button></ng-template>
+    
+    <span *ngIf="sheetFile">
+        <span class="file-name">{{sheetFile.name}}</span>
+        <span class="file-size">({{formatBytes(sheetFile.size)}})</span>
+        <button type="button" (click)="clearFile()" class="remove-button">REMOVE&ensp;✕</button>
+    </span>
+    
+    <span *ngIf="successText">
+        <b>&nbsp;The file has been uploaded successfully.</b>
+    </span>
+</div>

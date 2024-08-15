@@ -1,0 +1,65 @@
+table {
+    font-size: 90%;
+}
+
+th, td {
+    border-bottom: 1px solid #e6e6e6;
+    padding: 8px;
+    height: 42px;
+}
+
+th {
+    background-color: #e6e6e6;
+    font-weight: 500;
+    text-align: left;
+}
+
+tr:nth-child(odd) {
+    background-color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.tnumber-selection {
+    position: relative;
+    margin-top: 14px;
+    margin-bottom: 10px;
+}
+
+.dropdown {
+    font-weight: 500;
+    padding: 3px;
+    margin-bottom: 13px;
+    width: 140px;
+    border: 2px solid #d2d9e1;
+}
+
+.dropdown:has(option[value=""]:checked) {
+    color: #687078;
+}
+
+.dropdown option {
+    color: black;
+}
+
+.submit-button {
+    position: absolute;
+    top: 0px;
+    height: 31px;
+    width: 80px;
+    margin-left: 15px;
+    font-size: 15px;
+    color: white;
+    background-color: #181a1c;
+    border: none;
+}
+
+.submit-button:hover {
+    transition: all 195ms ease;
+    color: white;
+    border: 2px solid var(--color--primary-button--hover__background);
+    background-color: var(--color--primary-button--hover__background);
+    cursor: pointer;
+}

@@ -1,0 +1,43 @@
+<div>
+  <p *ngIf="!enable">You can only select records for batch update when status, term number, and entry term of all the search results are the same.</p>
+  <p *ngIf="enable && entries.length == 0">No records selected.</p>
+  <div *ngIf="enable && entries.length != 0">
+    <p>Select a new term number to apply to all selected records.</p>
+    <div class="tnumber-selection">
+      <select [(ngModel)]="newTermNum" class="dropdown">
+        <option value>Term Number</option>
+        <option *ngFor="let termNum of termNums" [value]="termNum">{{termNum}}</option>
+      </select>
+      <button type="button" (click)="batchUpdate()" class="submit-button">Apply</button>
+    </div>
+    <p *ngIf="successText"><b>The records have been updated successfully. (Reload to see the updated values)</b></p>
+    <table>
+      <tr>
+        <th>Lifetime ID</th>
+        <th>UNI</th>
+        <th>PID</th>
+        <th>Last Name</th>
+        <th>First Name</th>
+        <th>Graduation Year</th>
+        <th>Status</th>
+        <th>Term Number</th>
+        <th>Entry Term</th>
+        <th>Program</th>
+        <th>Cluster</th>
+      </tr>
+      <tr *ngFor="let entry of entries">
+        <td>{{entry.lifetimeid}}</td>
+        <td>{{entry.uni}}</td>
+        <td>{{entry.cnumber}}</td>
+        <td>{{entry.lname}}</td>
+        <td>{{entry.fname}}</td>
+        <td>{{entry.gradyear}}</td>
+        <td>{{entry.status}}</td>
+        <td>{{entry.tnumber}}</td>
+        <td>{{entry.eterm}}</td>
+        <td>{{entry.program}}</td>
+        <td>{{entry.cluster}}</td>
+      </tr>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,308 @@
+<div class="wrapper" [class.slide-in]="uni">
+    <div *ngIf="uni; else noneSelected">
+        <div *ngIf="studentInfo; else noData">
+            <button class="hide-button" (click)="hidePanel()">
+                <svg class="icon--arrow--carrot-right icon" role="img" >
+                    <use role="presentation" xlink:href="/static/cbs_django_template/icons/icons.svg#icon--arrow--carrot-right"/>
+                </svg>
+                <span>&ensp;Close Record</span>
+            </button>        
+            
+            <div class="flexbox">
+                <p class="title">{{studentInfo.sis_first_name}} {{studentInfo.sis_m_name}} {{studentInfo.sis_last_name}}</p>
+                <img src="{{studentInfo.profilephotoURL}}" style="width:120px; height:120px">
+            </div>
+
+            <div class="menu-box">
+                <div class="menu-link" (click)="showHistory = false">
+                    <p>Update Record</p>
+                    <div [class]="{highlight: true, selected: !showHistory}"></div>
+                </div>
+                <div class="menu-link" (click)="showHistory = true">
+                    <p>History</p>
+                    <div [class]="{highlight: true, selected: showHistory}"></div>
+                </div>
+            </div>
+
+            <div *ngIf="showHistory; else showProfile">
+                <table>
+                    <tr>
+                        <th style="width:210px">Date Updated</th>
+                        <th style="width:270px">Change</th>
+                        <th style="width:70px">User</th>
+                    </tr>
+                    <tr *ngFor="let entry of studentHistory">
+                        <td>{{entry.action_time|date:"MMMM, dd yyyy HH:mm:ss"}}</td>
+                        <td style="padding-right:10px">{{entry.action}}</td>
+                        <td>{{entry.updated_by}}</td>
+                    </tr>
+                </table>
+            </div>
+            <ng-template #showProfile>
+                <p class="heading" style="margin-top: 0px; border-top: 0px">IDs</p>
+                <div class="flexbox">
+                    <div class="flex-item">
+                        <label for="lifetime-id">Lifetime ID:</label>
+                        <p id="lifetime-id">{{studentInfo.lifetimeid || '—'}}</p>
+                    </div>
+                    <div class="flex-item">
+                        <label for="email">Email:</label>
+                        <p id="email">{{studentInfo.email_address || '—'}}</p>
+                    </div>
+                    <div class="flex-item">
+                        <label for="uni">UNI:</label>
+                        <p id="uni">{{studentInfo.uni || '—'}}</p>
+                    </div> 
+                    <div class="flex-item">
+                        <label for="email">PID:</label>
+                        <p id="email">{{studentInfo.cnumber || '—'}}</p>
+                    </div>
+                    <div class="flex-item">
+                        <label for="gsb-name">GSB Name:</label>
+                        <p id="gsb-name">{{studentInfo.fname || '—'}} {{studentInfo.mname}} {{studentInfo.lname}}</p>
+                    </div>
+                    <div class="flex-item">
+                        <label for="sis-legal-name">SIS Legal Name:</label>
+                        <p id="sis-legal-name">{{studentInfo.sis_first_name || '—'}} {{studentInfo.sis_m_name}} {{studentInfo.sis_last_name}}</p>
+                    </div>
+                    <div class="flex-item">
+                        <label for="sis-preferred-name">SIS Preferred Name:</label>
+                        <p id="sis-preferred-name">{{studentInfo.preferred_fname || '—'}} {{studentInfo.preferred_mname}} {{studentInfo.preferred_lname}}</p>
+                    </div>
+                    <div class="flex-item">
+                        <label for="preferred-name-update">Preferred Name Update Date:</label>
+                        <p id="preferred-name-update">{{studentInfo.p_date_updated|date:'MM/dd/yyyy' || '—'}}</p>
+                    </div>
+                    <div class="flex-item">
+                        <label for="dob">DOB:</label>
+                        <p id="dob">{{studentInfo.dob || '—'}}</p>
+                    </div>
+                    <div class="flex-item">
+                        <a href="https://www0.gsb.columbia.edu/helpdesk/index.cfm?lifetime={{studentInfo.lifetimeid}}&uni={{studentInfo.uni}}">Helpdesk Record</a>
+                        <b *ngIf="studentInfo.flag_1 == 1" style="color:red;font-style:italic;"><br>Test Account</b>
+                    </div>
+                </div>
+                
+                <p class="heading">Profile</p>
+                <div class="flexbox">
+                    <div class="flex-item">
+                        <label for="gender">Gender:</label>
+                        <app-form-field id="gender" tabindex="0"
+                            [enable]="studentInfo.can_edit" 
+                            [initial]="studentInfo.gender"
+                            (valueUpdated)="updateRecord('gender', $event)">
+                        </app-form-field>
+                    </div>
+                    <div class="flex-item">
+                        <label for="prefix">Prefix:</label>
+                        <app-form-field id="prefix" tabindex="0"
+                            [enable]="studentInfo.can_edit" 
+                            [initial]="studentInfo.prefix"
+                            (valueUpdated)="updateRecord('prefix', $event)">
+                        </app-form-field>
+                    </div>
+                    <div class="flex-item">
+                        <label for="work-phone">Work Phone:</label>
+                        <app-form-field id="work-phone" tabindex="0"
+                            [enable]="studentInfo.can_edit" 
+                            [initial]="studentInfo.wphone"
+                            (valueUpdated)="updateRecord('wphone', $event)">
+                        </app-form-field>
+                    </div>
+                    <div class="flex-item">
+                        <label for="home-phone">Home Phone:</label>
+                        <app-form-field id="home-phone" tabindex="0"
+                            [enable]="studentInfo.can_edit" 
+                            [initial]="studentInfo.hphone"
+                            (valueUpdated)="updateRecord('hphone', $event)">
+                        </app-form-field>
+                    </div>
+                    <div class="flex-item">
+                        <label for="residence">Country of Residence:</label>
+                        <app-form-dropdown id="residence" tabindex="0"
+                            [enable]="studentInfo.can_edit" 
+                            [initial]="studentInfo.countryresidency"
+                            [allVals]="countries"
+                            (valueUpdated)="updateRecord('countryresidency', $event)">
+                        </app-form-dropdown>
+                    </div>
+                    <div class="flex-item">
+                        <label for="citizenship">Citizenship:</label>
+                        <app-form-dropdown id="citizenship" tabindex="0"
+                            [enable]="studentInfo.can_edit" 
+                            [initial]="studentInfo.citizenship"
+                            [allVals]="citzCodes"
+                            (valueUpdated)="updateRecord('citizenship', $event)">
+                        </app-form-dropdown>
+                    </div>  
+                    <div class="flex-item">
+                        <label for="visa-code">Visa Code:</label>
+                        <app-form-dropdown id="visa-code" tabindex="0"
+                            [enable]="studentInfo.can_edit" 
+                            [initial]="studentInfo.visa_code"
+                            [allVals]="visaCodes"
+                            nullVal="N/A"
+                            (valueUpdated)="updateRecord('visa_code', $event)">
+                        </app-form-dropdown>
+                    </div>
+                </div>
+                
+                <p class="heading">Academic Career</p>
+                <div class="flexbox">
+                    <div class="flex-item">
+                        <label for="program">Program:</label>
+                        <app-form-dropdown id="program" tabindex="0"
+                            [enable]="studentInfo.can_edit" 
+                            [initial]="studentInfo.program"
+                            [allVals]="programs"
+                            nullVal="Select One"
+                            (valueUpdated)="updateRecord('program', $event)">
+                        </app-form-dropdown>
+                    </div>
+                    <div class="flex-item">
+                        <label for="term-number">Term Number:</label>
+                        <app-form-dropdown id="term-number" tabindex="0"
+                            [enable]="studentInfo.can_edit" 
+                            [initial]="studentInfo.tnumber"
+                            [allVals]="termNums"
+                            nullVal="Select One"
+                            (valueUpdated)="updateRecord('tnumber', $event)">
+                        </app-form-dropdown>
+                    </div>
+                    <div *ngIf="studentInfo.program == 'BUPHD'" class="flex-item">
+                        <label for="phd-division">PhD Division:</label>
+                        <app-form-dropdown id="phd-division" tabindex="0"
+                            [enable]="studentInfo.can_edit" 
+                            [initial]="studentInfo.division"
+                            [allVals]="divisions"
+                            nullVal="N/A"
+                            (valueUpdated)="updateRecord('division', $event)">
+                        </app-form-dropdown>
+                    </div>
+                    <div class="flex-item">
+                        <label for="grad-year">Grad Year:</label>
+                        <app-form-dropdown id="grad-year" tabindex="0"
+                            [enable]="studentInfo.can_edit" 
+                            [initial]="studentInfo.gradyear"
+                            [allVals]="gradYears"
+                            (valueUpdated)="updateRecord('gradyear', $event)">
+                        </app-form-dropdown>
+                    </div>
+                    <div class="flex-item">
+                        <label for="status">Status:</label>
+                        <app-form-dropdown id="status" tabindex="0"
+                            [enable]="studentInfo.can_edit" 
+                            [initial]="studentInfo.status"
+                            [allVals]="statuses"
+                            (valueUpdated)="updateRecord('status', $event)">
+                        </app-form-dropdown>
+                    </div>
+                    <div *ngIf="gStatusType() != 0" class="flex-item">
+                        <label for="g-status">G Status</label>
+                        <app-form-date id="g-status" tabindex="0"
+                            [enable]="gStatusType() == 1" 
+                            [initial]="studentInfo.gdate"
+                            [minDate]="studentInfo.min_gdate"
+                            (valueUpdated)="updateRecord('gdate', $event)">
+                        </app-form-date>
+                    </div>
+                    <div class="flex-item">
+                        <label for="entry-term">Entry Term:</label>
+                        <app-form-field id="entry-term" tabindex="0"
+                            [enable]="studentInfo.can_edit" 
+                            [initial]="studentInfo.entryterm"
+                            (valueUpdated)="updateRecord('entryterm', $event)">
+                        </app-form-field>
+                    </div>
+                    <div class="flex-item">
+                        <label for="cluster">Cluster:</label>
+                        <app-form-field id="cluster" tabindex="0"
+                            [enable]="studentInfo.can_edit" 
+                            [initial]="studentInfo.cluster"
+                            (valueUpdated)="updateRecord('cluster', $event)">
+                        </app-form-field>
+                    </div>
+                    <div class="flex-item">
+                        <label for="learning-team">Learning Team:</label>
+                        <app-form-field id="learning-team" tabindex="0"
+                            [enable]="studentInfo.can_edit" 
+                            [initial]="studentInfo.lteam"
+                            [maxLength]="5"
+                            (valueUpdated)="updateRecord('lteam', $event)">
+                        </app-form-field>
+                    </div>
+                </div>
+
+                <p class="heading">Comments</p>
+                <div *ngIf="studentInfo.comments" class="comment-box">
+                    <app-comment *ngFor="let comment of studentInfo.comments" [commentObj]="comment"></app-comment>
+                </div>
+                <textarea [(ngModel)]="newComment" placeholder="Enter comment"></textarea>
+                <div class="flexbox" style="margin-top: 10px;">
+                    <button class="big-button dark" (click)="newComment = ''">Clear Comment</button>
+                    <button class="big-button light" (click)="updateRecord('comment', newComment)">Post Comment</button>
+                </div>
+            </ng-template>
+
+            <div style="margin-top: 20px; color: #cccccc; font-size: 14px;">
+                <p>Last updated: {{studentInfo.date_updated|date:"MMMM dd, yyyy 'at' HH:mm:ss aa" || '—'}}</p>
+                <p>Last update source: {{studentInfo.source_updated || '—'}}</p>
+            </div>
+        </div>
+        <ng-template #noData>
+            <p>Loading...</p>
+            <!-- currently this also shows up if the UNI is invalid and thus the API returns nothing -->
+            <!-- at some point we might want to differentiate "empty response" from "hasn't responded yet" -->
+        </ng-template>
+    </div>
+    <ng-template #noneSelected>
+        <p>No record selected.</p>
+    </ng-template>
+</div>
+
+<!--
+
+<p><b>UNI:</b> {{studentInfo.uni}}</p>
+<p><b>Lifetime ID:</b> {{studentInfo.lifetimeid}}</p>
+<p><b>dob:</b> {{studentInfo.dob}}</p>
+<p><b>Email:</b> {{studentInfo.email_address}}</p>
+<p><b>PID:</b> {{studentInfo.cnumber}}</p>
+<p><b>GSB Name:</b> {{studentInfo.fname}} {{studentInfo.mname}} {{studentInfo.lname}}</p>
+<p><b>Preferred SIS Name:</b> {{studentInfo.preferred_fname}} {{studentInfo.preferred_mname}} {{studentInfo.preferred_lname}}</p>
+<p><b>Preferred Name Update Date:</b> {{studentInfo.p_date_updated}}</p>
+<p><b>SIS Legal Name:</b> {{studentInfo.sis_first_name}} {{studentInfo.sis_m_name}} {{studentInfo.sis_last_name}}</p>
+<p><b>Contact Information from SIS:</b></p>
+<p *ngFor="let address of studentInfo.addresses">{{address.address1}}, {{address.city_name}}, {{address.state_code}} {{address.zip_code}}</p>
+<p><b>Comments:</b></p>
+<p *ngFor="let comment of studentInfo.comments">{{comment.Originator}}: {{comment.Comment}}</p>
+<div class="wrapper">
+    <h4>Update Entry Data</h4>
+    <label for="prefix">Prefix: </label><input id="prefix" [(ngModel)]="dirtyInfo.prefix" placeholder="Prefix"><br>
+    <label for="gender">Gender: </label><input id="gender" [(ngModel)]="dirtyInfo.gender" placeholder="Gender"><br>
+    <label for="citiz">Citizenship: </label><input id="citiz" [(ngModel)]="dirtyInfo.citizenship"><br>
+    <label for="countRes">Country Res: </label><input id="countRes" [(ngModel)]="dirtyInfo.countryresidency"><br>
+    <label for="visa_code">Visa Code: </label><input id="visa_code" [(ngModel)]="dirtyInfo.visa_code"><br>
+
+    <label for="hphone">Home: </label><input id="hphone" [(ngModel)]="dirtyInfo.hphone" placeholder="Home Phone"><br>
+    <label for="wphone">Work: </label><input id="wphone" [(ngModel)]="dirtyInfo.wphone" placeholder="Work Phone"><br>
+
+    <label for="gradyear">Grad year: </label><input id="gradyear" [(ngModel)]="dirtyInfo.gradyear"><br>
+    <label for="status">Status: </label><input id="status" [(ngModel)]="dirtyInfo.status"><br>
+    <span *ngIf="dirtyInfo.status == 'RG' || dirtyInfo.status == 'RC'">
+        <label for="gstatus">G Status: </label><input id="gstatus" type="date" [(ngModel)]="gDateString" min="{{dirtyInfo.min_gdate|date:'yyyy-MM-dd'}}"><br>
+    </span>
+    <span *ngIf="dirtyInfo.status == 'G' || (dirtyInfo.status == 'FC' && gDateString != '')">
+        G Status: {{dirtyInfo.gdate|date:'MM/dd/yyyy'}}<br>
+    </span>
+    <label for="cluster">Cluster: </label><input id="cluster" [(ngModel)]="dirtyInfo.cluster" placeholder="Cluster"><br>
+    <label for="learningTeam">Learning Team: </label><input id="learningTeam" [(ngModel)]="dirtyInfo.lteam" placeholder="Learning Team"><br>
+    <label for="program">Program: </label><input id="program" [(ngModel)]="dirtyInfo.program"><br>
+    <label for="termNumber">Term Number: </label><input id="termNumber" [(ngModel)]="dirtyInfo.tnumber"><br>
+    <label for="entryterm">Entry Term: </label><input id="entryterm" [(ngModel)]="dirtyInfo.entryterm" placeholder="Entry Term"><br>
+    <label for="comment">Comment: </label><br><textarea id="comment" [(ngModel)]="dirtyInfo.comment" placeholder="Enter comment for this record"></textarea><br>
+    <button type="button" (click)="updateEntry()">Save Changes</button>
+    <button type="button" (click)="getStudentInfo()">Undo Changes</button>
+    <p style="margin-top: 10px;">Last updated: {{dirtyInfo.date_updated|date:'MMMM dd yyyy HH:mm:ss'}} | Last Update Source: {{dirtyInfo.source_updated}} | Last Updated By: {{dirtyInfo.last_updated_by}}</p>
+</div><br>
+
+-->

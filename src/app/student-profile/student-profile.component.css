@@ -1,0 +1,151 @@
+.wrapper {
+    position: fixed;
+    right: -100%; /* Initially off the screen */
+    top: 0;
+    height: 100%;
+    width: 650px;
+    padding: 20px;
+    padding-bottom: 16px;
+    padding-top: 16px;
+    color: white;
+    background-color: #181a1c;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #cccccc #424242;
+    z-index: 1000;
+    transition: right 0.5s ease-in-out; /* Animation effect */
+}
+
+.wrapper.slide-in {
+    right: 0; /* Slide in to cover the screen */
+}
+
+.hide-button {
+    float: right;
+    margin-bottom: 16px;
+    font-weight: 600;
+    font-size: 17px;
+    background-color: #181a1c;
+    color: white;
+    border: 2px;
+    width: 155px;
+    height: 27px;
+}
+
+.flexbox {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.flex-item {
+    width: 298px;
+    height: 70px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.menu-box {
+    border-bottom: 2px solid #687078;
+    margin-bottom: 20px;
+}
+
+.menu-link {
+    display: inline-block;
+    margin-right: 25px;
+}
+
+.highlight {
+    display: none;
+    width: 30px;
+    height: 3px;
+    background-color: #008cc6;
+    margin-top: 17px;
+    margin-bottom: -1.5px;
+}
+
+.selected, .menu-link:hover>.highlight {
+    display: block;
+}
+
+.heading {
+    font-size: 20px;
+    font-weight: 500;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    border-top: 2px solid #687078;
+    margin-top: 10px;
+}
+
+.comment-box {
+    margin-bottom: 18px;
+    margin-top: -15px;
+    overflow-y: auto;
+    height: fit-content;
+    max-height: 150px;
+}
+
+.big-button {
+    font-size: 18px;
+    font-weight: 500;
+    width: 291px;
+    height: 70px;
+}
+
+.dark {
+    background-color: #181a1c;
+    border: 2px solid white;
+    color: white;
+}
+
+.light {
+    background-color: white;
+    border: none;
+    color: #1a1a1a;
+}
+
+.big-button:hover, .hide-button:hover {
+    transition: all 195ms ease;
+    color: white;
+    border: 2px solid var(--color--primary-button--hover__background);
+    background-color: var(--color--primary-button--hover__background);
+    cursor: pointer;
+}
+
+label {
+    color: #cccccc;
+}
+
+a {
+    width: fit-content;
+    color: #008cc6;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+textarea {
+    background-color: #424242;
+    font-weight: 400;
+    padding: 15px;
+    width: 100%;
+    height: 102px;
+    resize: none;
+}
+
+th {
+    font-size: 19px;
+    font-weight: 500;
+}
+
+td {
+    font-size: 14px;
+    padding-top: 8px;
+}

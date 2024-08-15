@@ -1,0 +1,99 @@
+<div class="flexbox">
+    <div style="position: relative;" (keyup.enter)="searchStudents()">
+        <h4 class="heading">Search for Records</h4>
+
+        <div class="m-inline-form__field">
+            <label class="m-form-field m-form-field--text " data-behavior="FormField">
+                <input [(ngModel)]="searchParams.lifetimeid" placeholder="Lifetime ID" class="m-form-field__input" data-formfield-input />
+                <span class="m-form-field__status"></span>
+            </label>
+        </div>
+
+        <div class="m-inline-form__field">
+            <label class="m-form-field m-form-field--text " data-behavior="FormField">
+                <input [(ngModel)]="searchParams.uni" placeholder="UNI" class="m-form-field__input" data-formfield-input />
+                <span class="m-form-field__status"></span>
+            </label>
+        </div>
+
+        <div class="m-inline-form__field">
+            <label class="m-form-field m-form-field--text " data-behavior="FormField">
+                <input [(ngModel)]="searchParams.cnumber" placeholder="PID" class="m-form-field__input" data-formfield-input />
+                <span class="m-form-field__status"></span>
+            </label>
+        </div>
+
+        <div class="m-inline-form__field">
+            <label class="m-form-field m-form-field--text " data-behavior="FormField">
+                <input [(ngModel)]="searchParams.lname" placeholder="Last Name" class="m-form-field__input" data-formfield-input />
+                <span class="m-form-field__status"></span>
+            </label>
+        </div>
+
+        <div class="m-inline-form__field">
+            <label class="m-form-field m-form-field--text " data-behavior="FormField">
+                <input [(ngModel)]="searchParams.fname" placeholder="First Name" class="m-form-field__input" data-formfield-input />
+                <span class="m-form-field__status"></span>
+            </label>
+        </div>
+
+        <select [(ngModel)]="searchParams.gradyear" class="dropdown" data-dropdown-select>
+            <option value>Grad Year</option>
+            <option *ngFor="let gradYear of gradYears" [value]="gradYear">{{gradYear}}</option>
+        </select>
+
+        <select [(ngModel)]="searchParams.status" class="dropdown" data-dropdown-select>
+            <option value>Status</option>
+            <option *ngFor="let status of statuses" [value]="status">{{status}}</option>
+        </select>
+
+        <div class="m-inline-form__field">
+            <label class="m-form-field m-form-field--text " data-behavior="FormField">
+                <input [(ngModel)]="searchParams.eterm" placeholder="Entry Term" class="m-form-field__input" data-formfield-input />
+                <span class="m-form-field__status"></span>
+            </label>
+        </div>
+
+        <div class="m-inline-form__field">
+            <label class="m-form-field m-form-field--text " data-behavior="FormField">
+                <input [(ngModel)]="searchParams.cluster" placeholder="Cluster" class="m-form-field__input" data-formfield-input />
+                <span class="m-form-field__status"></span>
+            </label>
+        </div>
+
+        <select [(ngModel)]="searchParams.program" class="dropdown" data-dropdown-select>
+            <option value>Program</option>
+            <option *ngFor="let program of programs" [value]="program">{{program}}</option>
+        </select>
+
+        <select [(ngModel)]="searchParams.tnumber" class="dropdown" data-dropdown-select>
+            <option value>Term Number</option>
+            <option *ngFor="let termNum of termNums" [value]="termNum">{{termNum}}</option>
+        </select>
+
+        <button type="button" (click)="searchStudents()" class="search-button">Search</button>
+        <button type="button" (click)="clearFields()" class="clear-button">Clear</button><br>
+    </div>
+    <div class="results-table">
+        <app-student-list [results]="searchResults" [batchEnable]="batchEnable" [(selected)]="selected" (batchListChanged)="updateBatchList($event)"></app-student-list>
+    </div>
+</div>
+
+<p style="font-size: 97%; color: #687078">Showing {{searchResults.length}} results</p>
+
+<app-student-profile [uni]="selected?.uni" (deselect)="this.selected = undefined"></app-student-profile>
+
+<br>
+<ul class="m-section-nav__links">                                    
+    <li [class.is-current]="selectedTool == 1">
+        <a href="javascript: void(0);" (click)="selectTool(1)">Batch Update</a>
+    </li>
+    <li [class.is-current]="selectedTool == 2">
+        <a href="javascript: void(0);" (click)="selectTool(2)">Cluster/LTeam Upload</a>
+    </li>
+</ul>
+<br>
+
+<app-batch-process *ngIf="selectedTool == 1" [entries]="batchSelected" [program]="batchProgram" [enable]="batchEnable"></app-batch-process>
+
+<app-sheet-upload *ngIf="selectedTool == 2"></app-sheet-upload>

@@ -1,0 +1,104 @@
+h4 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+button {
+    padding: 5px;
+}
+
+.m-inline-form__field {
+    margin-left: 0px;
+    padding-top: 0px;
+    height: 40px;
+}
+
+.m-form-field__input {
+    height: initial;
+    min-height: initial;
+}
+
+.m-form-field__status {
+    top: 6px;
+}
+
+.dropdown {
+    font-weight: 500;
+    padding: 3px;
+    margin-bottom: 13px;
+    width: 100%;
+    border: 2px solid #d2d9e1;
+}
+
+.dropdown:has(option[value=""]:checked) {
+    color: #687078;
+}
+
+.dropdown option {
+    color: black;
+}
+
+.heading {
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.wrapper {
+    border: 1px solid gray;
+    border-style: dashed;
+}
+
+.flexbox {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    height: 570px;
+    width: fit-content;
+    margin-bottom: 10px;
+}
+
+.results-table {
+    background-color: #fafafa;
+    overflow-y: auto; 
+    height: 570px; 
+}
+
+.search-button {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    width: 48%;
+    height: 60px;
+    font-size: 16px;
+    color: white;
+    background-color: #181a1c;
+    border: none;
+}
+
+.search-button:hover, .clear-button:hover{
+    transition: all 195ms ease;
+    color: white;
+    border: 2px solid var(--color--primary-button--hover__background);
+    background-color: var(--color--primary-button--hover__background);
+    cursor: pointer;
+}
+
+.clear-button {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    width: 48%;
+    height: 60px;
+    font-size: 16px;
+    background-color: white;
+    border: 2px solid #e6e6e6;
+}
+
+.m-section-nav__links {
+    border-bottom: 2px solid #e6e6e6;
+}
+
+a {
+    padding-bottom: 18px;
+}

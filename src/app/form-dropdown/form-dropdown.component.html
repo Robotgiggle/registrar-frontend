@@ -1,0 +1,15 @@
+<div class="wrapper">
+    <div *ngIf="active; else inert" (keyup.esc)="active = false">
+        <select [(ngModel)]="value" #inputField>
+            <option *ngIf="nullVal != ''" value>{{nullVal}}</option>
+            <option *ngFor="let val of allVals" [value]="val">{{val}}</option>
+        </select>
+        <button type="button" [class.active]="isDirty()" (click)="submitValue()">✓</button>
+    </div>
+    <ng-template #inert>
+        <p (click)="activate()" [class.editable]="enable">
+            <span>{{initial || '—'}}</span>
+            <img src="/static/pencil.svg">
+        </p>
+    </ng-template>
+</div>

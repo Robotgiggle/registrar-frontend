@@ -1,0 +1,13 @@
+<div class="wrapper">
+    <div *ngIf="active; else inert" class="input-frame" (keyup.enter)="submitValue()" (keyup.esc)="active = false">
+        <input type="date" [(ngModel)]="value" min="{{minDate|date:'yyyy-MM-dd'}}" #inputField>
+        <button type="button" [class.active]="isDirty()" (click)="submitValue()">✓</button>
+    </div>
+    <ng-template #inert>
+        <p (click)="activate()" [class.editable]="enable">
+            <span *ngIf="updating; else display">Updating...</span>
+            <ng-template #display>{{initial|date:'MM/dd/yyyy' || '—'}}</ng-template>
+            <img src="/static/pencil.svg">
+        </p>
+    </ng-template>
+</div>

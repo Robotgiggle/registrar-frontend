@@ -1,0 +1,40 @@
+<table>
+    <tr style="position: sticky; top: 0px">
+        <th style="width: 80px;">
+            Batch
+            <input *ngIf="batchEnable" type="checkbox" [checked]="batchAll" (change)="toggleBatchAll()">
+        </th>
+        <th style="width: 130px;">Lifetime ID</th>
+        <th style="width: 95px;">Last Name</th>
+        <th style="width: 95px;">First Name</th>
+        <th style="width: 60px;">UNI</th>
+        <th style="width: 100px;">PID</th>
+        <th style="width: 85px;">Grad Year</th>
+        <th style="width: 60px;">Status</th>
+        <th style="width: 75px;">Term</th>
+        <th style="width: 95px;">Entry Term</th>
+        <th style="width: 75px;">Program</th>
+        <th style="width: 70px;">Cluster</th>
+    </tr>
+    <tr *ngFor="let result of results" [class.selected]="result == selected">
+        <td style="text-align: center;">
+            <input *ngIf="batchEnable" 
+                type="checkbox" 
+                [checked]="batchSelected.includes(result)" 
+                (change)="toggleBatchEntry(result)">
+        </td>
+        <td>
+            <button tabindex="0" (click)="selectEntry(result)">{{result.lifetimeid}}</button>
+        </td>
+        <td>{{result.lname}}</td>
+        <td>{{result.fname}}</td>
+        <td style="font-family: monospace;">{{result.uni}}</td>
+        <td style="font-family: monospace;">{{result.cnumber}}</td>
+        <td>{{result.gradyear}}</td>
+        <td>{{result.status}}</td>
+        <td>{{result.tnumber}}</td>
+        <td style="font-family: monospace;">{{result.eterm}}</td>
+        <td>{{result.program}}</td>
+        <td>{{result.cluster}}</td>
+    </tr>
+</table>

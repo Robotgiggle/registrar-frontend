@@ -1,0 +1,38 @@
+table {
+    font-size: 90%;
+}
+
+th, td {
+    border-bottom: 1px solid #e6e6e6;
+    padding: 8px;
+    height: 42px;
+}
+
+th {
+    background-color: #e6e6e6;
+    font-weight: 500;
+    text-align: left;
+}
+
+tr:nth-child(odd) {
+    background-color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+tr.selected {
+    background-color: #f1f4f7;
+}
+
+button {
+    background: none!important;
+    padding: 0!important;
+    border: none;
+    color: #008cc6;
+    font-size: 100%;
+    font-weight: 500;
+    font-family: neue-haas-grotesk-text;
+    cursor: pointer;
+}

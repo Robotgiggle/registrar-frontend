@@ -1,0 +1,20 @@
+.clickable {
+    width: fit-content;
+    color: #008cc6;
+    font-weight: 500;
+}
+
+.clickable:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.expanded {
+    background-color: #424242;
+    padding: 3px 6px 3px 6px;
+}
+
+div {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
